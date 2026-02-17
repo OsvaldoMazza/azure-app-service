@@ -39,6 +39,10 @@ This guide explains three different ways to deploy a web application to Azure, a
 
 2. Verify the deployment in the Azure Portal.
 
+#### Delete Resources
+    ./delete_resources.sh
+---
+
 ### Note
 If you encounter an issue with `gunicorn` not being found during the App Service deployment, ensure that:
 - `gunicorn` is listed in the `requirements.txt` file.
@@ -62,6 +66,8 @@ If you encounter an issue with `gunicorn` not being found during the App Service
    Then call the `push_code_to_azure.sh` that build and push the Docker to ACR.
    Finally call the `config_k8s.sh` that updates the `deployment.yaml` kubernet file and configure the containers. This script shows the **External ID** to use to access to the Web App.
 
+#### Delete Resources
+    ./delete_resources.sh
 ---
 
 ## Summary
