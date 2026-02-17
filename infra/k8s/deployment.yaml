@@ -5,7 +5,7 @@ metadata:
   labels:
     app: fastapi-app
 spec:
-  replicas: 1
+  replicas: 3
   selector:
     matchLabels:
       app: fastapi-app
@@ -16,7 +16,7 @@ spec:
     spec:
       containers:
       - name: fastapi-app
-        image: <your-container-registry>/fastapi-app:latest
+        image: test08acr.azurecr.io/test-08-image:latest
         ports:
         - containerPort: 8000
         env:
