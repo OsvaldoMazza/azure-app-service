@@ -19,9 +19,11 @@ DOCKER_IMAGE_NAME="${base_name}-image:latest"
 
 # Update deployment.yaml with the correct image name
 DEPLOYMENT_FILE="$(dirname "$0")/deployment.yaml"
+TEMP_FILE="$(dirname "$0")/deployment_temp.yaml"
 if [ -f "$DEPLOYMENT_FILE" ]; then
-  sed -i "s|<your-container-registry>|$ACR_LOGIN_SERVER|g" "$DEPLOYMENT_FILE"
-  sed -i "s|<your-image-name>|$DOCKER_IMAGE_NAME|g" "$DEPLOYMENT_FILE"
+  IMAGE_NAME="$ACR_LOGIN_SERVER/$DOCKER_IMAGE_NAME"
+  sed "s|<your-container-registry>/<your-image-name>:latest|$IMAGE_NAME|g" "$DEPLOYMENT_FILE" > "$TEMP_FILE"
+
   echo "Updated deployment.yaml with ACR and image name."
 else
   echo "deployment.yaml not found. Exiting."
@@ -34,8 +36,10 @@ az aks get-credentials --resource-group "${base_name}-rg" --name "${base_name}ak
 
 echo "Applying Kubernetes deployment..."
 # Apply Kubernetes deployment
-kubectl apply -f "$DEPLOYMENT_FILE"
+kubectl apply -f "$TEMP_FILE"
 echo "Kubernetes deployment applied successfully."
+
+rm "$TEMP_FILE"
 
 CONTAINER_DEPLOYED="$ACR_LOGIN_SERVER/$DOCKER_IMAGE_NAME"
 echo "Container deployed: $CONTAINER_DEPLOYED"

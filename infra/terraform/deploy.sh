@@ -15,10 +15,10 @@ if [ -f "$(dirname "$0")/.env" ]; then
 fi
 
 # Check if AZURE_SUBSCRIPTION_ID is set
-if [ -z "$AZURE_SUBSCRIPTION_ID" ]; then
-  echo "AZURE_SUBSCRIPTION_ID is not set in the .env file. Exiting."
-  exit 1
-fi
+# if [ -z "$AZURE_SUBSCRIPTION_ID" ]; then
+#   echo "AZURE_SUBSCRIPTION_ID is not set in the .env file. Exiting."
+#   exit 1
+# fi
 
 # Create ZIP file
 if [ -d "$SRC_DIR" ]; then
@@ -37,13 +37,13 @@ else
 fi
 
 # Set Azure subscription
-if [ -n "$AZURE_SUBSCRIPTION_ID" ]; then
-  echo "Setting Azure subscription to $AZURE_SUBSCRIPTION_ID..."
-  az account set --subscription "$AZURE_SUBSCRIPTION_ID"
-else
-  echo "Azure subscription ID is not set. Exiting."
-  exit 1
-fi
+# if [ -n "$AZURE_SUBSCRIPTION_ID" ]; then
+#   echo "Setting Azure subscription to $AZURE_SUBSCRIPTION_ID..."
+#   az account set --subscription "$AZURE_SUBSCRIPTION_ID"
+# else
+#   echo "Azure subscription ID is not set. Exiting."
+#   exit 1
+# fi
 
 # Run Terraform
 pushd "$(dirname "$0")" > /dev/null

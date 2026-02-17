@@ -29,6 +29,7 @@ This guide explains three different ways to deploy a web application to Azure, a
 - Ensure Terraform is installed.
 - Navigate to the `infra/k8s` or `infra/terraform` directory.
 - Update the `terraform.tfvars` file with your desired configuration values.
+- Login with Azure CLI (az login)
 
 ### Commands
 1. Run the deployment script:
@@ -52,10 +53,14 @@ If you encounter an issue with `gunicorn` not being found during the App Service
 
 ## 3. Deploying with Kubernetes (AKS)
 
+This option creates the Azure Container Resource (ACR), Azure Kubernete Services (AKS), and a Role to pull images from ACR to AKS. The code will be send by a Docker Container. Then, the Kubernetes file deploy the Container instances, configuring the number of replicas in `deployment.yaml`.
+Note: A VM will be created by Azure in **MC_** Resource Group.
+
 ### Configuration
 - Ensure `kubectl` is installed and configured to point to your AKS cluster.
 - Navigate to the `infra/k8s` directory.
 - Update the `deployment.yaml` file with the correct container image URL.
+- Login with Azure CLI (az login)
 
 ### Commands
 1. Run the deployment script:
